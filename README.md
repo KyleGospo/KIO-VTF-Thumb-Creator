@@ -6,7 +6,7 @@ Run `build_and_install.sh` to build and install (duh).
 - Fix DXT1 alpha bug.
 - Maybe add animated hover-over preview for animated textures.
 
-![preview](https://github.com/AndrewBetson/KIO-VTF-Thumb-Creator/blob/master/img/preview.png?raw=true)
+![preview](https://github.com/AndrewBetson/KIO-VTF-Thumb-Creator/master/img/vtfthumbcreator_preview.png?raw=true)
 
 Original README
 ========================
