@@ -1,37 +1,58 @@
-cmake_minimum_required(VERSION 2.8)
+#
+# Copyright Andrew Betson.
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <https://www.gnu.org/licenses/>.
+#
 
-project(vtfthumbcreator)
+CMake_Minimum_Required( VERSION 3.16.0 )
 
-# ---- dependencies -----------------------------------------------------------
-find_package(KDE4 REQUIRED)
-include(MacroOptionalAddSubdirectory)
+Project( vtfthumbcreator
+	LANGUAGES CXX
+	VERSION 1.0.0
+)
 
-pkg_check_modules(VTFLIB REQUIRED VTFLib)
+Set( QT_MIN_VERSION 5.2.0 )
 
-# ---- compiler flags ---------------------------------------------------------
-if(MSVC)
-	# Force to always compile with W4
-	if(CMAKE_CXX_FLAGS MATCHES "/W[0-4]")
-		string(REGEX REPLACE "/W[0-4]" "/W4" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-	else()
-		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
-	endif()
-elseif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra -pedantic -Werror -Wno-write-strings -O3")
-endif()
+Find_Package( ECM 1.0.0 REQUIRED NO_MODULE )
+Set( CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/cmake )
 
-include(KDE4Defaults)
-include(${QT_USE_FILE})
-add_definitions(${QT_DEFINITIONS})
+Include( FeatureSummary )
+Include( WriteBasicConfigVersionFile )
+Include( KDEInstallDirs )
+Include( KDECMakeSettings )
+Include( KDECompilerSettings NO_POLICY_SCOPE )
 
-include_directories(${VTFLIB_INCLUDE_DIRS} ${KDE4_INCLUDE_DIR})
+Find_Package( KF5 REQUIRED COMPONENTS KIO )
+Pkg_Check_Modules( VTFLIB REQUIRED VTFLib )
 
-# ---- build library ----------------------------------------------------------
-set(vtfthumbcreator_SRCS VTFThumbCreator.cpp)
+File( GLOB_RECURSE VTFTHUMBCREATOR_SRC "${CMAKE_CURRENT_SOURCE_DIR}/code/**" )
+Add_Library( vtfthumbcreator MODULE "src/VTFThumbCreator.cpp" )
 
-kde4_add_plugin(vtfthumbcreator ${vtfthumbcreator_SRCS} VTFThumbCreator.h)
-target_link_libraries(vtfthumbcreator ${KDE4_KIO_LIBS} ${VTFLIB_LIBRARIES})
+Target_Include_Directories( vtfthumbcreator PRIVATE ${VTFLIB_INCLUDE_DIRS} )
 
-# ---- install target ---------------------------------------------------------
-install(TARGETS vtfthumbcreator DESTINATION ${PLUGIN_INSTALL_DIR})
-install(FILES vtfthumbcreator.desktop DESTINATION ${SERVICES_INSTALL_DIR})
+Target_Link_Libraries( vtfthumbcreator
+	KF5::KIOCore
+	KF5::KIOWidgets
+	"${VTFLIB_LIBRARIES}"
+)
+
+Install(
+	TARGETS vtfthumbcreator
+	DESTINATION "${PLUGIN_INSTALL_DIR}"
+)
+
+Install(
+	FILES vtfthumbcreator.desktop
+	DESTINATION "${SERVICES_INSTALL_DIR}"
+)

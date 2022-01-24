@@ -1,3 +1,16 @@
+A KF5 update of [KIO-VTF-Thumb-Creator](https://github.com/panzi/KIO-VTF-Thumb-Creator) by Mathias "Panzi" Panzenböck.
+
+Run `build_and_install.sh` to build and install (duh).
+
+# TODO
+- Fix DXT1 alpha bug.
+- Maybe add animated hover-over preview for animated textures.
+
+![preview](https://github.com/AndrewBetson/KIO-VTF-Thumb-Creator/blob/master/img/preview.png?raw=true)
+
+Original README
+========================
+
 KIO Thumbnail VTF Plugin
 ========================
 

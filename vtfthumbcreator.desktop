@@ -1,9 +1,8 @@
 [Desktop Entry]
-Encoding=UTF-8
 Type=Service
 Name=Valve Texture Format
-ServiceTypes=ThumbCreator
+X-KDE-ServiceTypes=ThumbCreator
+X-KDE-Library=vtfthumbcreator
 MimeType=image/x-vtf;
 CacheThumbnail=true
-X-KDE-Library=vtfthumbcreator
-ThumbnailerVersion=1
+ThumbnailerVersion=2
