@@ -34,6 +34,7 @@ Include( KDECMakeSettings )
 Include( KDECompilerSettings NO_POLICY_SCOPE )
 
 Find_Package( KF5 REQUIRED COMPONENTS KIO )
+Find_Package( SharedMimeInfo REQUIRED )
 Pkg_Check_Modules( VTFLIB REQUIRED VTFLib )
 
 File( GLOB_RECURSE VTFTHUMBCREATOR_SRC "${CMAKE_CURRENT_SOURCE_DIR}/code/**" )
@@ -56,3 +57,9 @@ Install(
 	FILES vtfthumbcreator.desktop
 	DESTINATION "${SERVICES_INSTALL_DIR}"
 )
+
+Install(
+	FILES x-vtf.xml
+	DESTINATION "${KDE_INSTALL_MIMEDIR}"
+)
+Update_XDG_MimeTypes( "${KDE_INSTALL_MIMEDIR}" )
