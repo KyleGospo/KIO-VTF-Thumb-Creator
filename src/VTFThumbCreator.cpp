@@ -16,13 +16,24 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "VTFThumbCreator.h"
-
 #include <QString>
 #include <QImage>
 
 #include <VTFFile.h>
 #include <VTFLib.h>
+
+#include <kio/thumbcreator.h>
+
+class CVTFThumbCreator : public ThumbCreator
+{
+public:
+	bool create( const QString &szPath, int nWidth, int nHeight, QImage &Image ) override;
+	Flags flags() const override
+	{
+		return None;
+	}
+
+};
 
 bool CVTFThumbCreator::create( const QString &szPath, int nWidth, int nHeight, QImage &Image )
 {
