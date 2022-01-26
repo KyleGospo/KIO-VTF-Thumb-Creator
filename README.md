@@ -4,6 +4,7 @@ Run `build_and_install.sh` to build and install (duh).
 
 # TODO
 - Fix DXT1 alpha bug.
+- Find out if there's a way to require that a file has both the .vtf extension *and* `VTF\x00` magic to fix VPK thumbnail bug.
 - Maybe add animated hover-over preview for animated textures.
 
 ![preview](https://raw.githubusercontent.com/AndrewBetson/KIO-VTF-Thumb-Creator/master/img/vtfthumbcreator_preview.png)
