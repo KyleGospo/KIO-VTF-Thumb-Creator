@@ -55,12 +55,12 @@ Install(
 )
 
 Install(
-	FILES vtfthumbcreator.desktop
+	FILES install/vtfthumbcreator.desktop
 	DESTINATION "${SERVICES_INSTALL_DIR}"
 )
 
 Install(
-	FILES x-vtf.xml
+	FILES install/x-vtf.xml
 	DESTINATION "${KDE_INSTALL_MIMEDIR}"
 )
 Update_XDG_MimeTypes( "${KDE_INSTALL_MIMEDIR}" )
