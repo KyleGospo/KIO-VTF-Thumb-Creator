@@ -2,11 +2,20 @@ A KF5 update of [KIO-VTF-Thumb-Creator](https://github.com/panzi/KIO-VTF-Thumb-C
 
 Run `build_and_install.sh` to build and install (duh).
 
-# TODO
+Notes
+========================
+- Depends on [VTFLib](https://github.com/panzi/VTFLib).
+- Pass `-DUSE_LIBTXC_DXTN=OFF` when generating VTFLibs build files if you don't want to have to download, build and install libtxc_dxtn first.
+- Ensure you have the necessary Qt5 and KF5 development packages installed. (you're unfortunately on your own wrt figuring out exactly which packages those *are*, as I can't find any concrete answers to that myself...)
+
+TODO
+========================
 - Fix DXT1 alpha bug.
 - Find out if there's a way to require that a file has both the .vtf extension *and* `VTF\x00` magic to fix VPK thumbnail bug.
 - Maybe add animated hover-over preview for animated textures.
 
+Preview
+========================
 ![preview](https://raw.githubusercontent.com/AndrewBetson/KIO-VTF-Thumb-Creator/master/img/vtfthumbcreator_preview.png)
 
 Original README
