@@ -50,7 +50,7 @@ bool CVTFThumbCreator::create( const QString &szPath, int nWidth, int nHeight, Q
 		return false;
 	}
 
-	const vlByte *pnFrame = 0;
+	const vlByte *puSrcData = 0;
 	VTFImageFormat eSrcFormat;
 
 	vlUInt uThumbnailWidth = File.GetThumbnailWidth();
@@ -62,7 +62,7 @@ bool CVTFThumbCreator::create( const QString &szPath, int nWidth, int nHeight, Q
 		// VTF has a thumbnail; get its image data.
 
 		eSrcFormat = File.GetThumbnailFormat();
-		pnFrame = File.GetThumbnailData();
+		puSrcData = File.GetThumbnailData();
 	}
 	else
 	{
@@ -96,10 +96,10 @@ bool CVTFThumbCreator::create( const QString &szPath, int nWidth, int nHeight, Q
 			uMipLevel--;
 		}
 
-		pnFrame = File.GetData( File.GetFrameCount() - 1, 0, 0, uMipLevel );
+		puSrcData = File.GetData( File.GetFrameCount() - 1, 0, 0, uMipLevel );
 	}
 
-	if ( !pnFrame )
+	if ( !puSrcData )
 	{
 		return false;
 	}
@@ -127,8 +127,8 @@ bool CVTFThumbCreator::create( const QString &szPath, int nWidth, int nHeight, Q
 		}
 	}
 
-	uchar *puBits = Image.bits();
-	if ( !VTFLib::CVTFFile::Convert( pnFrame, puBits, uThumbnailWidth, uThumbnailHeight, eSrcFormat, eDstFormat ) )
+	uchar *puDstData = Image.bits();
+	if ( !VTFLib::CVTFFile::Convert( puSrcData, puDstData, uThumbnailWidth, uThumbnailHeight, eSrcFormat, eDstFormat ) )
 	{
 		qDebug( "%s", VTFLib::LastError.Get() );
 		return false;
@@ -139,11 +139,11 @@ bool CVTFThumbCreator::create( const QString &szPath, int nWidth, int nHeight, Q
 	{
 		for ( size_t uIdx = 0, uPixelIdx = uThumbnailWidth * uThumbnailHeight * 4; uIdx < uPixelIdx; uIdx += 4 )
 		{
-			uchar uBlue = puBits[ uIdx + 0 ];
-			uchar uRed = puBits[ uIdx + 2 ];
+			uchar uBlue = puDstData[ uIdx + 0 ];
+			uchar uRed = puDstData[ uIdx + 2 ];
 
-			puBits[ uIdx + 0 ] = uRed;
-			puBits[ uIdx + 2 ] = uBlue;
+			puDstData[ uIdx + 0 ] = uRed;
+			puDstData[ uIdx + 2 ] = uBlue;
 		}
 	}
 
