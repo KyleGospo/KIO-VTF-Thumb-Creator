@@ -26,6 +26,7 @@ Project( vtfthumbcreator
 Set( QT_MIN_VERSION 5.2.0 )
 
 Find_Package( ECM 1.0.0 REQUIRED NO_MODULE )
+Find_Package( PkgConfig REQUIRED )
 Set( CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/cmake )
 
 Include( FeatureSummary )
